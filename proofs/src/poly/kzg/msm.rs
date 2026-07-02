@@ -181,6 +181,32 @@ pub fn msm_specific<C: CurveAffine>(coeffs: &[C::Scalar], bases: &[C::Curve]) ->
         let bases_slice = bases.as_slice();
         let coeffs = unsafe { &*(coeffs_slice as *const _ as *const [Fq]) };
         let bases = unsafe { &*(bases_slice as *const _ as *const [G1Projective]) };
+
+        // On wasm32, blst has no pthreads, so its Pippenger runs on one core.
+        // When a rayon pool is available (e.g. wasm-bindgen-rayon's Web-Worker
+        // pool in the browser), split the MSM into one chunk per thread, run
+        // blst's single-threaded Pippenger on each, and add the partial
+        // results. The cost of splitting (slightly smaller Pippenger windows
+        // per chunk, plus T-1 final point additions) is far below the gain
+        // from parallelism. Rayon-based alternatives to blst (`msm_best`)
+        // measured several times slower per core than blst's C, so chunking
+        // blst beats switching MSM implementations. Native is left unchanged.
+        #[cfg(target_arch = "wasm32")]
+        {
+            use rayon::iter::IndexedParallelIterator;
+            use rayon::slice::ParallelSlice;
+            let threads = rayon::current_num_threads();
+            if threads > 1 && coeffs.len() >= (1 << 13) {
+                let chunk_size = coeffs.len().div_ceil(threads);
+                let res = bases
+                    .par_chunks(chunk_size)
+                    .zip(coeffs.par_chunks(chunk_size))
+                    .map(|(b, c)| G1Projective::multi_exp(b, c))
+                    .reduce(G1Projective::identity, |acc, p| acc + p);
+                return unsafe { std::mem::transmute_copy(&res) };
+            }
+        }
+
         let res = G1Projective::multi_exp(bases, coeffs);
         unsafe { std::mem::transmute_copy(&res) }
     } else {
