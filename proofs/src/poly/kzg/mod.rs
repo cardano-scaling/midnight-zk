@@ -10,9 +10,7 @@
 use std::{collections::HashMap, marker::PhantomData};
 
 use midnight_curves::pairing::Engine;
-use rayon::iter::{
-    IndexedParallelIterator, IntoParallelIterator, IntoParallelRefIterator, ParallelIterator,
-};
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 /// KZG commitment type
 pub mod commitment;
@@ -54,6 +52,25 @@ use crate::{
         helpers::ProcessedSerdeObject,
     },
 };
+
+/// `acc += scalar · p`, in place and parallelized, for `p` no longer than
+/// `acc`. Used by `multi_open` to fold polynomial linear combinations one
+/// operand at a time without materializing every operand up front (each is a
+/// full-domain polynomial — 8 MiB at k=18 — and the fold runs at the prover's
+/// peak-memory point).
+fn scaled_add<F: Field, B: PolynomialRepresentation>(
+    acc: &mut Polynomial<F, B>,
+    p: &Polynomial<F, B>,
+    scalar: F,
+) {
+    assert!(p.values.len() <= acc.values.len());
+    let len = p.values.len();
+    parallelize(&mut acc.values[..len], |lhs, start| {
+        for (l, r) in lhs.iter_mut().zip(p.values[start..].iter()) {
+            *l += *r * scalar;
+        }
+    });
+}
 
 #[derive(Clone, Debug)]
 /// KZG verifier
@@ -223,21 +240,34 @@ where
             (q_polys, point_sets)
         };
 
+        // f(X) = Σ_i x2^i · q_i(X) / Π_{z ∈ S_i} (X - z), folded set by set so
+        // only one Kate-division result is alive at a time (rather than
+        // materializing every f_i before the inner product: each f_i is a
+        // full-domain polynomial, and this runs at the prover's peak-memory
+        // point, which matters on the 4 GiB wasm32 address space).
         let f_poly = {
-            let f_polys: Vec<_> = point_sets
-                .into_par_iter()
-                .zip(q_polys.clone().into_par_iter())
-                .map(|(points, q_poly)| {
-                    let poly = points.iter().fold(q_poly.values.clone(), |poly, point| {
-                        kate_division(&poly, *point)
-                    });
-                    Polynomial {
-                        values: poly,
-                        _marker: PhantomData,
-                    }
-                })
-                .collect();
-            poly_inner_product(&f_polys.iter().collect::<Vec<_>>(), powers(x2))
+            let max_len = q_polys
+                .iter()
+                .map(|q| q.values.len())
+                .max()
+                .expect("at least one point set");
+            let mut acc = Polynomial::<E::Fr, Coeff> {
+                values: vec![E::Fr::ZERO; max_len],
+                _marker: PhantomData,
+            };
+            for ((points, q_poly), x2_power) in
+                point_sets.iter().zip(q_polys.iter()).zip(powers(x2))
+            {
+                let values = points.iter().fold(q_poly.values.clone(), |poly, point| {
+                    kate_division(&poly, *point)
+                });
+                let f_i = Polynomial {
+                    values,
+                    _marker: PhantomData,
+                };
+                scaled_add(&mut acc, &f_i, x2_power);
+            }
+            acc
         };
 
         let f_com = Self::commit(
