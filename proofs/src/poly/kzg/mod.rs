@@ -35,17 +35,35 @@ use crate::{
             utils::construct_intermediate_sets,
         },
         query::{CommitmentLabel, VerifierQuery},
-        Coeff, Error, LagrangeCoeff, Polynomial, ProverQuery,
+        Coeff, Error, LagrangeCoeff, Polynomial, PolynomialRepresentation, ProverQuery,
     },
     transcript::{Hashable, Sampleable, Transcript},
     utils::{
         arithmetic::{
             eval_polynomial, evals_inner_product, inner_product, kate_division,
-            lagrange_interpolate, msm_inner_product, powers, CurveAffine, CurveExt, MSM,
+            lagrange_interpolate, msm_inner_product, parallelize, powers, CurveAffine, CurveExt,
+            MSM,
         },
         helpers::ProcessedSerdeObject,
     },
 };
+
+/// `acc += scalar · p`, in place and parallelized. Used by `multi_open` to
+/// fold polynomial linear combinations without materializing `p · scalar`
+/// (each such temporary is a full-domain polynomial — 8 MiB at k=18 — and the
+/// fold runs at the prover's peak-memory point).
+fn scaled_add<F: Field, B: PolynomialRepresentation>(
+    acc: &mut Polynomial<F, B>,
+    p: &Polynomial<F, B>,
+    scalar: F,
+) {
+    assert_eq!(acc.values.len(), p.values.len());
+    parallelize(&mut acc.values, |lhs, start| {
+        for (l, r) in lhs.iter_mut().zip(p.values[start..].iter()) {
+            *l += *r * scalar;
+        }
+    });
+}
 
 #[derive(Clone, Debug)]
 /// KZG verifier
@@ -107,24 +125,31 @@ where
 
         let (poly_map, point_sets) = construct_intermediate_sets(prover_query)?;
 
-        let mut q_polys = vec![vec![]; point_sets.len()];
-
+        // Fold each set's polynomials with powers of x1 as we walk the query
+        // map, instead of first cloning every queried polynomial into per-set
+        // lists and reducing them afterwards. At k=18 those clones are
+        // hundreds of MiB at what is already the prover's peak-memory point,
+        // which overflows the 4 GiB wasm32 address space.
+        let mut q_polys: Vec<Option<Polynomial<E::Fr, Coeff>>> = vec![None; point_sets.len()];
+        let mut x1_powers = vec![E::Fr::ONE; point_sets.len()];
         for com_data in poly_map.iter() {
-            q_polys[com_data.set_index].push(com_data.commitment.poly.clone());
+            let set = com_data.set_index;
+            let raw = x1_powers[set];
+            x1_powers[set] = raw * x1;
+
+            // Matches (truncated_)powers(x1): the power chain itself is never
+            // truncated, only the scalar actually used.
+            #[cfg(feature = "truncated-challenges")]
+            let scalar = truncate(raw);
+            #[cfg(not(feature = "truncated-challenges"))]
+            let scalar = raw;
+
+            let poly: &Polynomial<E::Fr, Coeff> = com_data.commitment.poly;
+            match q_polys[set].as_mut() {
+                None => q_polys[set] = Some(poly.clone() * scalar),
+                Some(acc) => scaled_add(acc, poly, scalar),
+            }
         }
-
-        let q_polys = q_polys
-            .iter()
-            .map(|polys| {
-                #[cfg(feature = "truncated-challenges")]
-                let x1 = truncated_powers(x1);
-
-                #[cfg(not(feature = "truncated-challenges"))]
-                let x1 = powers(x1);
-
-                inner_product(polys, x1)
-            })
-            .collect::<Vec<_>>();
 
         // Sort point sets by ascending cardinality to ensure the first set is the one
         // that contains fixed commitments (which are evaluated at x only). This
@@ -137,27 +162,36 @@ where
         let (q_polys, point_sets) = {
             let mut order: Vec<usize> = (0..point_sets.len()).collect();
             order.sort_by_key(|&i| (point_sets[i].len(), i));
-            let q_polys: Vec<_> = order.iter().map(|&i| q_polys[i].clone()).collect();
+            let q_polys: Vec<_> = order
+                .iter()
+                .map(|&i| q_polys[i].take().expect("every point set has at least one query"))
+                .collect();
             let point_sets: Vec<_> = order.iter().map(|&i| point_sets[i].clone()).collect();
             (q_polys, point_sets)
         };
 
+        // f(X) = Σ_i x2^i · q_i(X) / Π_{z ∈ S_i} (X - z), folded set by set so
+        // only one Kate-division intermediate is alive at a time (rather than
+        // cloning all q_polys and collecting all f_i up front).
         let f_poly = {
-            let f_polys = point_sets
-                .iter()
-                .zip(q_polys.clone())
-                .map(|(points, q_poly)| {
-                    let mut poly = points.iter().fold(q_poly.clone().values, |poly, point| {
-                        kate_division(&poly, *point)
-                    });
-                    poly.resize(1 << params.max_k() as usize, E::Fr::ZERO);
-                    Polynomial {
-                        values: poly,
-                        _marker: PhantomData,
-                    }
-                })
-                .collect::<Vec<_>>();
-            inner_product(&f_polys, powers(x2))
+            let mut acc: Option<Polynomial<E::Fr, Coeff>> = None;
+            for ((points, q_poly), x2_power) in
+                point_sets.iter().zip(q_polys.iter()).zip(powers(x2))
+            {
+                let mut poly = points
+                    .iter()
+                    .fold(q_poly.values.clone(), |poly, point| kate_division(&poly, *point));
+                poly.resize(1 << params.max_k() as usize, E::Fr::ZERO);
+                let f_i = Polynomial {
+                    values: poly,
+                    _marker: PhantomData,
+                };
+                match acc.as_mut() {
+                    None => acc = Some(f_i * x2_power),
+                    Some(acc) => scaled_add(acc, &f_i, x2_power),
+                }
+            }
+            acc.expect("at least one point set")
         };
 
         let f_com = Self::commit(params, &f_poly);
@@ -176,15 +210,22 @@ where
         let x4: E::Fr = transcript.squeeze_challenge();
 
         let final_poly = {
-            let mut polys = q_polys;
-            polys.push(f_poly);
             #[cfg(feature = "truncated-challenges")]
             let powers = truncated_powers(x4);
 
             #[cfg(not(feature = "truncated-challenges"))]
             let powers = powers(x4);
 
-            inner_product(&polys, powers)
+            // Consume the polynomials as they are folded (inner_product would
+            // clone each): every q_poly is freed right after its scaled add.
+            let mut acc: Option<Polynomial<E::Fr, Coeff>> = None;
+            for (poly, scalar) in q_polys.into_iter().chain(std::iter::once(f_poly)).zip(powers) {
+                match acc.as_mut() {
+                    None => acc = Some(poly * scalar),
+                    Some(acc) => scaled_add(acc, &poly, scalar),
+                }
+            }
+            acc.expect("at least one polynomial")
         };
         let v = eval_polynomial(&final_poly, x3);
 
