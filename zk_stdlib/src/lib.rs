@@ -2039,6 +2039,51 @@ where
     )?)
 }
 
+/// Exports a JSON bundle with everything an external (e.g. on-chain)
+/// verifier implementation needs for relation `R`: the SRS verifier element,
+/// the verifying key (including the full constraint system) and the
+/// committed-instance commitment.
+///
+/// If a `proof` is given, it is first verified with transcript hash `H`
+/// (export fails if it does not verify) and included in the bundle together
+/// with the public inputs derived from `instance`, as a known-good smoke
+/// test for the external verifier. The bundle records which transcript hash
+/// the proof was generated with; it is the importer's job to check that hash
+/// matches its own transcript instantiation.
+///
+/// See `midnight_proofs::dev::json_dump` for the encodings used.
+pub fn export_verifier_bundle<R: Relation, H: TranscriptHash>(
+    params_verifier: &ParamsVerifierKZG<midnight_curves::Bls12>,
+    vk: &MidnightVK,
+    instance: &R::Instance,
+    committed_instance: Option<G1Affine>,
+    proof: Option<&[u8]>,
+    name: &str,
+    out_path: &std::path::Path,
+) -> Result<(), R::Error>
+where
+    G1Projective: Hashable<H>,
+    F: Hashable<H> + Sampleable<H>,
+{
+    let pi = R::format_instance(instance)?;
+    let committed_pi = committed_instance.unwrap_or(G1Affine::identity());
+    if let Some(proof) = proof {
+        verify::<R, H>(params_verifier, vk, instance, committed_instance, proof)?;
+    }
+    let transcript_hash = std::any::type_name::<H>().rsplit("::").next().unwrap_or("unknown");
+    let pi_columns: [&[F]; 1] = [&pi];
+    midnight_proofs::dev::json_dump::dump_verification_json(
+        name,
+        transcript_hash,
+        &params_verifier.s_g2(),
+        &vk.vk,
+        &[committed_pi.into()],
+        proof.map(|proof| (&pi_columns[..], proof)),
+        out_path,
+    )
+    .map_err(|e| Error::Transcript(e).into())
+}
+
 /// Verifies a batch of proofs with respect to their corresponding vk.
 /// This method does not need to know the `Relation` the proofs are associated
 /// to and, indeed, it can verify proofs from different `Relation`s.

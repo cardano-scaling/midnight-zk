@@ -37,6 +37,8 @@ pub use failure::{FailureLocation, VerifyFailure};
 
 pub mod cost_model;
 
+pub mod json_dump;
+
 mod gates;
 pub use gates::CircuitGates;
 
