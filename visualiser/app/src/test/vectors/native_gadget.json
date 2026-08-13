@@ -1,0 +1,250 @@
+{
+ "meta": {
+  "name": "native_gadget",
+  "repo": "cardano-scaling/midnight-zk",
+  "branch": "wasm-parallel-msm-main",
+  "rev": "234dcf42805017e382b59d22e6f13b4bc5b6c181",
+  "protocol": "main",
+  "transcript_hash": "Blake2b256",
+  "curve": "BLS12-381",
+  "features": "committed-instances"
+ },
+ "srs": {
+  "s_g2": "b16010f1b3d33aa5f3f608c385400979ed36dc3fab53d3626f519c74d7e1ebef62c9ad35796404ce2fc3ebb42167b5a1050ac27c3527072b81af0fa9a683e226da79275f2985c9e89a0db969b76e0b6be94fee874c48586737ad5588cf1e1041",
+  "g2": "93e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8"
+ },
+ "vk": {
+  "k": 11,
+  "n": 2048,
+  "transcript_repr": "213b63b611bf43316cbefb03e704505132ceedcfd4116f8a7bbfe12460c86a16",
+  "fixed_commitments": [
+   "828c9f2df32d2a352152dfd94a2fcad6818260df67e0742dd9f39f35ba884a678deb27f5b5eeb4ba9f2bdecb3915f573",
+   "a59e0136427ae1b42d5b3fb3e16d6ae1267b787e48711088e562c971f3686920186c62754437653426dfe94a0eb73b6a",
+   "b38691a0b4cb5d6f2eeaedc0afb28385e7ed0908d620f143914fb347013d3b65472f90d21a498b208afaca882e9514e3",
+   "b330edd0b9780c64848996dbb0496fccf82e2c6912b40595bd7132921ed7b23926fe254eec38055f4a69f0f7b857246c",
+   "a8ef65726f06dcc0c651f4c6155bd98353ed98bd658397ad7432eebfc6ead1edf8c90c804a673efe98712b41305346e0",
+   "a5fe83b40849499deab018a890ad841d215d6527966280783592c29b6281d984180cc5d09e3923fb1497e33700ef2be5",
+   "a70cdb18ee325daf664d3bb4eba196dd0c9decd6a5be48417236a96a87b19ab540c8dbc0c65dc10b173a8d2a1bae26fd",
+   "956ee4d603e10769b07df555a5b8d1de943c55318888b7c15a1918c5c6444273dbf0f55bd03c2478582ad5093b780c6d",
+   "98540da89cb26c149d6a067dbdb0066dac10e7ded618c468b3be1504086840375c929b6eb05439e70af1284fab376a06",
+   "a462081b4a1852662d90483e3d7610e9fba7431be01a49e37fcd39e41e26c418911b04c7ca7628d1bace08a24f93d7bf",
+   "b22b3b3a6b02852e4c8de3fb51cc48fb0da30236472dac4847947e430a81f49a6e76aa466c3f87d6ab528f384038948e",
+   "a6f4fdaa8c7a60aa524f8d0f48314965d424074b9e8358b32936f7f1de26c90a5fe3463d2d14f589b1337ebd57f35983",
+   "928794738284cbd2d96b246b0c76c253c2334a9741bb0f54ceb1c780edd383abbe0309dda2ab5aae30869f763de3c4ae",
+   "8555362b77ee67e89b2e43f0d25deea86cbb626f29840d977b39fd1b8cc7f3d4021e08dc06f799bea760c6acdd054e70",
+   "c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "827b4b824fa683ee3d53dcae6e1005c08287c41f83f8e64ffd46ac1c538a4d7c70e5561da52373015cd0238aef672350"
+  ],
+  "permutation_commitments": [
+   "9361731ec8d16e96aa1031df7663cf92603d810b4e92f897fee04cb6865481d1d75611d58c4a5c9d60410c40e3eb8f38",
+   "a465ea779c61fd689ff091d4ad76cdf3a3d81eff4291eea5ae36db94b90011c47d443ca0c81a573b59807e05f5b18986",
+   "a261f2f6c58fe160f1fcf371e18e30a2a8fb8c1084ceae0a17cc04cd73eef17be72daa9fc6f5f3d146adb75343dfa50e",
+   "803eeca0c5c912b8ffb5297abfb8543af12e1a8b292406253aa0d21a432503ea14956e27738b9d7511a1ac5f794834ec",
+   "840f00c399361df6fd241a4d620d3571fb215abafd26ba987754b6a9c8d5e895ead0db9be79977987e3c1aee1d7e5419",
+   "a9a310d34ad68f9ebcf258d21acb2275d730e5ce17bdc50ebe204e2899b0b31e6d987fea648cf2a6a8d4aa7091ac6774",
+   "99508b48fdb2975eb118421b6a1906746abfee37a2564e1467c236d58174d40a090900bdcb6103b0d9709c55193eaf76",
+   "82d801f1468841b48ec476190a3870675f9e4f50bcd3eb00e1dcf6130089efb81742c7529d3fceab7de569fc4a61d255"
+  ],
+  "cs": {
+   "num_fixed_columns": 17,
+   "num_advice_columns": 5,
+   "num_instance_columns": 2,
+   "blinding_factors": 7,
+   "degree": 5,
+   "simple_selector_columns": [13,14,15],
+   "fixed_queries": [
+    [9,0],
+    [4,0],
+    [5,0],
+    [6,0],
+    [7,0],
+    [8,0],
+    [0,0],
+    [1,0],
+    [2,0],
+    [3,0],
+    [10,0],
+    [11,0],
+    [12,0],
+    [13,0],
+    [14,0],
+    [15,0],
+    [16,0]
+   ],
+   "advice_queries": [[0,0],[1,0],[2,0],[3,0],[4,0],[0,1],[1,1],[2,1]],
+   "instance_queries": [[0,0],[1,0]],
+   "gates": [
+    {
+     "name": "arith_gate",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":13,"column":13,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "sum": [
+                    {
+                     "sum": [
+                      {
+                       "sum": [
+                        {"fixed":{"query":9,"column":3,"rotation":0}},
+                        {
+                         "prod": [{"fixed":{"query":1,"column":4,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+                        }
+                       ]
+                      },
+                      {
+                       "prod": [{"fixed":{"query":2,"column":5,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+                      }
+                     ]
+                    },
+                    {
+                     "prod": [{"fixed":{"query":3,"column":6,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                    }
+                   ]
+                  },
+                  {
+                   "prod": [{"fixed":{"query":4,"column":7,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                  }
+                 ]
+                },
+                {
+                 "prod": [{"fixed":{"query":5,"column":8,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                }
+               ]
+              },
+              {
+               "prod": [{"fixed":{"query":6,"column":0,"rotation":0}},{"advice":{"query":5,"column":0,"rotation":1}}]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {
+               "prod": [{"fixed":{"query":7,"column":1,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+              },
+              {"advice":{"query":1,"column":1,"rotation":0}}
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {
+             "prod": [{"fixed":{"query":8,"column":2,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+            },
+            {"advice":{"query":2,"column":2,"rotation":0}}
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "12_minus_34",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":14,"column":14,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+            },
+            {"neg":{"advice":{"query":3,"column":3,"rotation":0}}}
+           ]
+          },
+          {"neg":{"advice":{"query":4,"column":4,"rotation":0}}}
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "parallel_add_gate",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":15,"column":15,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [{"advice":{"query":0,"column":0,"rotation":0}},{"fixed":{"query":1,"column":4,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":5,"column":0,"rotation":1}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":15,"column":15,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [{"advice":{"query":1,"column":1,"rotation":0}},{"fixed":{"query":2,"column":5,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":6,"column":1,"rotation":1}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":15,"column":15,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [{"advice":{"query":2,"column":2,"rotation":0}},{"fixed":{"query":3,"column":6,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":7,"column":2,"rotation":1}}}
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "lookups": [
+    {
+     "name": "lookup #1: pow2range column check",
+     "selector": {"fixed":{"query":16,"column":16,"rotation":0}},
+     "input_expression_chunks": [[[{"fixed":{"query":10,"column":10,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]]],
+     "table_expressions": [{"fixed":{"query":11,"column":11,"rotation":0}},{"fixed":{"query":12,"column":12,"rotation":0}}],
+     "num_chunks": 1
+    }
+   ],
+   "trash": [],
+   "permutation_columns": [
+    {"kind":"fixed","index":9},
+    {"kind":"advice","index":0},
+    {"kind":"advice","index":1},
+    {"kind":"advice","index":2},
+    {"kind":"advice","index":3},
+    {"kind":"advice","index":4},
+    {"kind":"instance","index":0},
+    {"kind":"instance","index":1}
+   ]
+  }
+ },
+ "nb_committed_instances": 1,
+ "committed_instances": ["c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],
+ "instances": [["1100000000000000000000000000000000000000000000000000000000000000"]],
+ "proof": "8aad020d212a22d9f09a723e09e0197d9fcba0268e31c4e560cc1cf4f95c035dd23fe7848e2d79810ae84a266221e94eb3d2a22de856c1eff17fd8130ae98c0980b38f368811cf7ccf8f9beec157658602f99aef99c78be067821f79ff5f0d9680d7342b81eebd4ba275227c1567866f5946fc4fd950c95a1478674dfab8d142c1c847f45967583e91abacb803d133bda492134e8b65f93b4c3f7c7c291cd1116e3f4c5b39196abee346bc5cbc0e863c4204b415c6ace3686f57cee080ada301965d5cb7cc84853bca1cd1ed384df732824bfa575866315a8e5be02cabb869818c8f0cb9496a941240a1ff6ae767eb9189ff9a3b2185d567500e1371bb6715cdc87fc2dc1db83524374f488d9a3179eb1b285817f0968bccec4233bf73e25930b871d68ce010fc2a8f627ed050c51a6163915869271168ce2341c8628a399b64b853dce1100430c32b0180189be168efa062e31dda76d4f7c3d6f38d40f0fff3b6cfa5f5e3b92fc97af6478050ec30a25f08dc23d957cf1242a4f946972d8888a579efd8d452d5103b8453227a6b183cc2f3c3d7e34502ec8921a03beec707a475122a4737866d0313a63077fbc486c48195aaabc2a600c3985785a6168b1fae879ce427865ed779758f7ecb19f16f8c94f66984469f41e7a30f9a681c92eac786b2fb0eb3fcb1425aed6dae0d8acaaae7877f618d7251701f9896f23596ac6c1a6661285ec84d3e34c2330a03f5120ea3ae56cfcc7303c6743ead76c683359b41a5e50ce4be73da0208c9d8ab95877b6a7046d85ccb3da802a80efac39ee2f7b8e83a22bf281eb8c9c2655f80b9df8ac1f42510a6c12ede923dd62df2d8e380d64fd1746ba7aff9d4590a2212e9199b8d6151c70abb88855040cf360bfacc55e61847036ae7cc956e909466ae7b90fbda27ac02bc0db8e04f94dcfde7ad3da2ac9fbc95b4b6399f51908a8775068adf7211c5dcb7bd3cb93ae74e11bacc4cd981fe0b0bd63b86d7b02db33fd2b590a2000000000000000000000000000000000000000000000000000000000000000026e6ffde7cf1c88e12613493364391ef0b6f753e5193b05fefa30716423788565e03c0eef79165e522492bee6dfad4d78c3deefffe39064021607dd55568de09188a676269ecd3c87ee1a4d1e702ebc4ff48665abc7e95ccac149b3ba2ed0f3349a35dba5256cfd11611ef1482f15117658dcf9363a7c7ac9c7c7b428900a143f259cb0b62178b7cc96b6e9c6a873d09b524ba444dd555f4b8349735b21dce692b867554c531fdb06908672f1442278d49344dcae670d749f8fec087cc3cbe0ef9610133b62883165281ee643bd39c93a2a962bce5622a77559dd30b9d3ddf3963e7d46c97c46b008b3bdd50d0a9e8891e5d7ce39d11d0ccf76e7a793631c0374f139078b2f818b5a9ead36ff2f46a5b5a13c5c2d47cbbd2a07db061ecba51227ddd4686ad2e944322e0ef59a2c00f11ac9a012e31dd4f02a1731039f9cd9e50299ed5447f051daee8dd73cd195c776f72c8b4dd4b0a361a189be839b3eba41419d7ee56d74077e329f6710917035371e6bbcb9cbfc19a0a8e43ca5ed4f06047ccc7873a2f56cd8120a26142cbc49140e906ef6c5e931523907b7fa7aa5d864044680693e140cd7b7b03468efdf0cb39ff7718a3e863cadf12d993f44f26532e471345439dfd298828e868c0a2e3e5152137920ee37e7dc5cb239b28afb56a5f4e7f6fcc1a5087ab7bec2eca20b3e86fbf3e321addf383c375d7f3358d59a41ceefc29d0caea5bdfd04ac7469e7990bfc407589dff880028a3d238d030dee012e6fa19193089c4669c05e78791eb88f1ec374ca17bd54a423ac405a8dc2b502c1f75c1130bd19c5fe0981f2982f0a2e173494b68c2dde6dbcbbe05ac4fddc349339e0ed9938b40bbc4ef2ce52c3743b0cfa23a7a943a7da9fdace944f6c77d081f7271b520b168fecf4c34232a3f9d54bf538b5c665671b421f11e1288c64327fc37556737546633aac50d16c8f9486d5d4691f35c0d55523740241b1b4bbd4ec9276cd88c55f6fbc524b70704f2870a32709d23400632d39f09d401708e925ef74d39aad2dc4afab85b6a9768f8a898b965f869aa79e8b5be9939f2a565c25e2008f87febfd34fa33e28f89bf28aac64d532deff2c43246e2030891ea20a3039b84a2ef78db1671eb60727af9f70a07dc35faf7ea6046d58fd4c13c1bd42025771170d3073814c4b411d48057cb880d96c9053bd88ed8a1ab3be96c1cc9e3364c4222aa7565602f64832ca24455e7329056f4b1ec858379fc54da0a9ee1bc40fde352be7e3eeebc186e4f1fd0e401f360c869e4ee4f22b0322dd2b372e10f1b563593c280f0779db92c4bbb91bd14d53b33b91fadfe42d6f157e8ed639fa22e47ea2b30695530e6680c3f305fe9b5ecc18289f81822e1a1956037d1e1ebb64f62db6e4afa117392bcc4f733933daf5e3d1ccd34afea1699172926b6d8ab260c9ce83ccd02ad805616fe8b6655cb15b1b455942e13a3d222019359192752af44f212dbe05f1442120260bfcdf2da0f674ff72de06e82506e6e015686788d056617568610a15e51e117de991cb77bc4e7fc2a37c2102ff9f0de85d9a30a5d6d18976a0e3d3bf014025ba2ea213144750cbf786b3c731b599c551378e03116594ef21872d059a66533912dc9806f08bc0209255a5b4e8aa2aecf4e1a1daf588669462cae6935d3035a45291ee4abc9e31eed6d6703f1c2ae46a92435331138f12396b980ab6fc40ff08d3cfe32d4b0cfb046963dd4e9609b8603d386ac59189a01168961fc64093f881313df81f244b98f326bf5511dedb3c41c4f104e8d72c204a1eb7a73748b1c4e1fd5bf8d1af3f41ced5ee33e964ca3783dd3625deb08c15fd1f3ced97b7d7db32d8f6afafd1513a647a945f5f10c1b651e76a098b2f5cb60b66161b322f51a08045a7d82e1aa51d27dc9abac447d410b444aac336bbe1c3462ba295a08733cc31b73e70c2d15fe0d8d501592b9eba2316fb7991852f92b04dbb19c96c6485047d62b0f9f7cce922b9c595da01d4d46fc70b05ae8f3799d8b5eac17061004bbd5d8719c4105a2cc1440c02966bfa6f7dbd672f3c8680eb821fe4f826629bc542b3bc12727361c7f73a165c37f5672d08b1f69b9e05eed5c71f0f6e7f312aff7ec385e130fdaf4863459a86dce2bf31269f02855f7a45d3d26",
+ "expected": true
+}

@@ -1,0 +1,1822 @@
+{
+ "meta": {
+  "name": "ecc_ops-3",
+  "repo": "cardano-scaling/midnight-zk",
+  "branch": "wasm-parallel-msm-main",
+  "rev": "234dcf42805017e382b59d22e6f13b4bc5b6c181",
+  "protocol": "main",
+  "transcript_hash": "Blake2b256",
+  "curve": "BLS12-381",
+  "features": "committed-instances"
+ },
+ "srs": {
+  "s_g2": "b16010f1b3d33aa5f3f608c385400979ed36dc3fab53d3626f519c74d7e1ebef62c9ad35796404ce2fc3ebb42167b5a1050ac27c3527072b81af0fa9a683e226da79275f2985c9e89a0db969b76e0b6be94fee874c48586737ad5588cf1e1041",
+  "g2": "93e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8"
+ },
+ "vk": {
+  "k": 11,
+  "n": 2048,
+  "transcript_repr": "f3e28a04f48504742acd8f0adb8a52e4c1fe1424fde7f5af3484c0e78a897f07",
+  "fixed_commitments": [
+   "b6c6a93afc0862598d4026ade142f9b37178eb2890f3057d4441c6d2ce10045c5ff4f9b6ebd9bb8a332ebf243236ce96",
+   "aec1df79ea2cccad45c02f19ac2907bf45068f244c93615e6c3c7826f998a28848c600df1924fb8a8ed31acf2f55376b",
+   "a633d64453ae6e421f1ff973dc770b9fdb6f681dff98dadc73fd62932e6369d9707298066c84f0d60b4f68912d5aa5f8",
+   "846dc162587b35fcf251c758c8e64d04e832f424688f4747832e46f16e63165931b26048eabe36991b8661da53948958",
+   "92a51be4a535ec8d302e2545194c982a8e4b1daa66782a33c22f836ab4d863fda398db68f1ae1923bfdea1bdb3342cee",
+   "97a27f862696e1cebf5419435eaf0e5cbdd0d9f5a0c3b2f5d398150786ad618b5c4d083896801c6627df4f36cd642c69",
+   "a5346beefb147162ac067aeaef166bab7dfcc47f4ad97680623ae55ba51f98808eaf935dc3a6e1f8d6d0a65f48e4e48d",
+   "8a50b0823a946f6d2ec7819b0e61229d0968b0846ab050c91c03ceb63bff957c816c625226494892bc602ea5b40371db",
+   "85ce026d6b3253dbbc072e3376d5e4082d6ac89209afa17a052c83b692359ca02d96abd99c599265aebb89a043417852",
+   "a155813c75993ab863e3c9fccedc918af5482b5c6e575d7d0535342797f1e198c381b5d24b192b8de8fa6a5e70fb7df6",
+   "b2d7593f475f16cd4caa2b96521eb821a95dd7dd7ad6676c0eef46a0c9c23162c0c9bf972e5c522f34f87021a75da3d9",
+   "a8c84d8a83b1124f0d80897e7dbb345f6831c980c3f7de3e2922ebce10a2d22eb1bdc48abf4dfab2fa97ea270a53efa1",
+   "a6d27ed6efe145d5665db671afec725d633b1bc5b7034dc6fbcc8a7af9dea66be58b54e35c76db2f96f3ab082fc220db",
+   "966e6db579e4fc3413ec820c21dc69a0fbe185d111bfcf5e6f1a283b3a32f69ce0e50034ba74640688a24c2d988b7742",
+   "c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+   "927cb70a43d7d2c28dc6c0159f94711989516685fcc057e2cac3c3b26b119081924227e0e5609596dd99c03bd6a900d9",
+   "b36f3a6849b2d22b9f796bf75f698c8dbf8122df6927ea0d48a4adb81c81c5df43a32fecdbe922a720c84ddd769c8dec",
+   "a7f22bed1cec970e95c8f6bd257c7798cc6deda40ff080f07f8a73890e40d3f8425c46ce1af38e9b1d9335d3f376d8e8",
+   "8702872eb2817ac093644cec1e7d5bafde97860f41425a954d6d0834aae8b75cb71ae37bb5977311ca2323dde55af038",
+   "b228e9bc6625ebcb7ec8ab41a05d8097b7c1e5f5fb22610f050a7aae996bfc35ed3add5e2b0a37734200da5e75f56570",
+   "b5afaba7672d1f10cf39b8b34522276c66af8aba0bf518419726904c05a7d69236e5bd9be883be0936d17c88a9213d14",
+   "83394b0f793444595141b9bc983bb8442096c2e89ca9fd20894d86e711befdd4e8b40887ff1713cc081a5609cc0980b3"
+  ],
+  "permutation_commitments": [
+   "8444b84d10f8ce130f7f407f989787089eea0f5e82bfbedb4cef217d3dd45282a155b1133e45b02845c2646db35f474a",
+   "a83003a33ac47ba7605e876d8bfc387ffd46874ccc4d081bf9b1b055816dafdf280361d6fdecaa4a16673f777877d031",
+   "a3027a32237e4a291353947149c47c871819f540563f3f50fe11a0017878dc1f8116b45b820e3dbb8cb9c328c71ee38e",
+   "89388b83ad9ebcbe2a105490e58b1469c3e01818ca32a16479ed150f502c6b783a1154583132b1aaabde772704e875c4",
+   "b29359ee0c8b391b3d7378ee92d7609fd74eb8658884c678b075589d3d1268793c3d51db1ad248c67d628ae798ff4c17",
+   "b8c520777a31b46552ec0801f0de84fbe12b2ad049086569960d2c8fd8399b5f6ab4dc6bf2c91d3b004cc952d2c034b4",
+   "99508b48fdb2975eb118421b6a1906746abfee37a2564e1467c236d58174d40a090900bdcb6103b0d9709c55193eaf76",
+   "ac1432f51fe8002707aea9b9714e7536b283cc2bec4cc70dd75024ab7e8ef551c775f25b3d53a15639338b6519317f15",
+   "a6ef13ccb3b96795e018818a369a8a780768fbe3b79c9bd069aa0c7e441378010fbced9a877eb1d7a7a472f88352ee89",
+   "ae29373a53ad8705acffb85501812efbb8bd2047b8f6392cb848c3b4af379d43fb82d29931b8b0feac8c7cb7fdd283a0"
+  ],
+  "cs": {
+   "num_fixed_columns": 22,
+   "num_advice_columns": 9,
+   "num_instance_columns": 2,
+   "blinding_factors": 8,
+   "degree": 5,
+   "simple_selector_columns": [13,14,15,17,18,19,20],
+   "fixed_queries": [
+    [9,0],
+    [4,0],
+    [5,0],
+    [6,0],
+    [7,0],
+    [8,0],
+    [0,0],
+    [1,0],
+    [2,0],
+    [3,0],
+    [10,0],
+    [11,0],
+    [12,0],
+    [13,0],
+    [14,0],
+    [15,0],
+    [16,0],
+    [17,0],
+    [18,0],
+    [19,0],
+    [20,0],
+    [21,0]
+   ],
+   "advice_queries": [[0,0],[1,0],[2,0],[3,0],[4,0],[0,1],[1,1],[2,1],[5,0],[6,0],[7,0],[8,0]],
+   "instance_queries": [[0,0],[1,0]],
+   "gates": [
+    {
+     "name": "arith_gate",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":13,"column":13,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "sum": [
+                    {
+                     "sum": [
+                      {
+                       "sum": [
+                        {"fixed":{"query":9,"column":3,"rotation":0}},
+                        {
+                         "prod": [{"fixed":{"query":1,"column":4,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+                        }
+                       ]
+                      },
+                      {
+                       "prod": [{"fixed":{"query":2,"column":5,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+                      }
+                     ]
+                    },
+                    {
+                     "prod": [{"fixed":{"query":3,"column":6,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                    }
+                   ]
+                  },
+                  {
+                   "prod": [{"fixed":{"query":4,"column":7,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                  }
+                 ]
+                },
+                {
+                 "prod": [{"fixed":{"query":5,"column":8,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                }
+               ]
+              },
+              {
+               "prod": [{"fixed":{"query":6,"column":0,"rotation":0}},{"advice":{"query":5,"column":0,"rotation":1}}]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {
+               "prod": [{"fixed":{"query":7,"column":1,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+              },
+              {"advice":{"query":1,"column":1,"rotation":0}}
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {
+             "prod": [{"fixed":{"query":8,"column":2,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+            },
+            {"advice":{"query":2,"column":2,"rotation":0}}
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "12_minus_34",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":14,"column":14,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+            },
+            {"neg":{"advice":{"query":3,"column":3,"rotation":0}}}
+           ]
+          },
+          {"neg":{"advice":{"query":4,"column":4,"rotation":0}}}
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "parallel_add_gate",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":15,"column":15,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [{"advice":{"query":0,"column":0,"rotation":0}},{"fixed":{"query":1,"column":4,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":5,"column":0,"rotation":1}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":15,"column":15,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [{"advice":{"query":1,"column":1,"rotation":0}},{"fixed":{"query":2,"column":5,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":6,"column":1,"rotation":1}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":15,"column":15,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [{"advice":{"query":2,"column":2,"rotation":0}},{"fixed":{"query":3,"column":6,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":7,"column":2,"rotation":1}}}
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "double",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":17,"column":17,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":5,"column":0,"rotation":1}},
+            {
+             "sum": [
+              {"const":"0100000000000000000000000000000000000000000000000000000000000000"},
+              {
+               "prod": [
+                {
+                 "prod": [
+                  {"const":"b13e34d6d65f0601269d57376d7f2d29d47fbde60792fdf5482bfa4be718932a"},
+                  {"advice":{"query":10,"column":7,"rotation":0}}
+                 ]
+                },
+                {
+                 "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "neg": {
+            "sum": [
+             {
+              "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+             },
+             {
+              "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+             }
+            ]
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":17,"column":17,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":6,"column":1,"rotation":1}},
+            {
+             "sum": [
+              {"const":"0100000000000000000000000000000000000000000000000000000000000000"},
+              {
+               "neg": {
+                "prod": [
+                 {
+                  "prod": [
+                   {"const":"b13e34d6d65f0601269d57376d7f2d29d47fbde60792fdf5482bfa4be718932a"},
+                   {"advice":{"query":10,"column":7,"rotation":0}}
+                  ]
+                 },
+                 {
+                  "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                 }
+                ]
+               }
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "neg": {
+            "sum": [
+             {
+              "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+             },
+             {"advice":{"query":10,"column":7,"rotation":0}}
+            ]
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":17,"column":17,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+          },
+          {"neg":{"advice":{"query":10,"column":7,"rotation":0}}}
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "conditional add",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":18,"column":18,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":8,"column":5,"rotation":0}},
+            {
+             "sum": [
+              {"const":"0100000000000000000000000000000000000000000000000000000000000000"},
+              {
+               "prod": [
+                {
+                 "prod": [
+                  {"advice":{"query":4,"column":4,"rotation":0}},
+                  {"const":"b13e34d6d65f0601269d57376d7f2d29d47fbde60792fdf5482bfa4be718932a"}
+                 ]
+                },
+                {"advice":{"query":11,"column":8,"rotation":0}}
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "neg": {
+            "sum": [
+             {"advice":{"query":0,"column":0,"rotation":0}},
+             {
+              "prod": [
+               {"advice":{"query":4,"column":4,"rotation":0}},
+               {
+                "sum": [
+                 {
+                  "sum": [
+                   {
+                    "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                   },
+                   {
+                    "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+                   }
+                  ]
+                 },
+                 {"neg":{"advice":{"query":0,"column":0,"rotation":0}}}
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":18,"column":18,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":9,"column":6,"rotation":0}},
+            {
+             "sum": [
+              {"const":"0100000000000000000000000000000000000000000000000000000000000000"},
+              {
+               "neg": {
+                "prod": [
+                 {
+                  "prod": [
+                   {"advice":{"query":4,"column":4,"rotation":0}},
+                   {"const":"b13e34d6d65f0601269d57376d7f2d29d47fbde60792fdf5482bfa4be718932a"}
+                  ]
+                 },
+                 {"advice":{"query":11,"column":8,"rotation":0}}
+                ]
+               }
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "neg": {
+            "sum": [
+             {"advice":{"query":1,"column":1,"rotation":0}},
+             {
+              "prod": [
+               {"advice":{"query":4,"column":4,"rotation":0}},
+               {
+                "sum": [
+                 {
+                  "sum": [
+                   {
+                    "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                   },
+                   {
+                    "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                   }
+                  ]
+                 },
+                 {"neg":{"advice":{"query":1,"column":1,"rotation":0}}}
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":18,"column":18,"rotation":0}},
+        {
+         "sum": [
+          {"advice":{"query":11,"column":8,"rotation":0}},
+          {
+           "neg": {
+            "prod": [
+             {
+              "prod": [
+               {
+                "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+               },
+               {"advice":{"query":2,"column":2,"rotation":0}}
+              ]
+             },
+             {"advice":{"query":3,"column":3,"rotation":0}}
+            ]
+           }
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "witness point",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":19,"column":19,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+            },
+            {
+             "neg": {
+              "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+             }
+            }
+           ]
+          },
+          {
+           "neg": {
+            "sum": [
+             {"const":"0100000000000000000000000000000000000000000000000000000000000000"},
+             {
+              "prod": [
+               {
+                "prod": [
+                 {"const":"b13e34d6d65f0601269d57376d7f2d29d47fbde60792fdf5482bfa4be718932a"},
+                 {
+                  "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+                 }
+                ]
+               },
+               {
+                "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+               }
+              ]
+             }
+            ]
+           }
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "full_round_gate",
+     "constraints": [
+      {
+       "prod": [
+        {"fixed":{"query":20,"column":20,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":0,"column":0,"rotation":0}},
+            {
+             "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+            }
+           ]
+          },
+          {"neg":{"advice":{"query":3,"column":3,"rotation":0}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":20,"column":20,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":1,"column":1,"rotation":0}},
+            {
+             "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+            }
+           ]
+          },
+          {"neg":{"advice":{"query":4,"column":4,"rotation":0}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":20,"column":20,"rotation":0}},
+        {
+         "sum": [
+          {
+           "prod": [
+            {"advice":{"query":2,"column":2,"rotation":0}},
+            {
+             "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+            }
+           ]
+          },
+          {"neg":{"advice":{"query":8,"column":5,"rotation":0}}}
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":20,"column":20,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {"fixed":{"query":6,"column":0,"rotation":0}},
+                {"neg":{"advice":{"query":5,"column":0,"rotation":1}}}
+               ]
+              },
+              {
+               "prod": [
+                {"const":"ce1ab50741de1861779eba534074d58aa6d8e21012246d5dfd22b981c314811b"},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+                  },
+                  {"advice":{"query":3,"column":3,"rotation":0}}
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"63d7c0fc137271e3b4094cecca0c99751733f59c89215d0ed22ecbc44c2ef33d"},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+                },
+                {"advice":{"query":4,"column":4,"rotation":0}}
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"c1ede1a0ae34cd3e0b08911560337f00b48e54bf798725beda64667adfc4053f"},
+            {
+             "prod": [
+              {
+               "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+              },
+              {"advice":{"query":8,"column":5,"rotation":0}}
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":20,"column":20,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {"fixed":{"query":7,"column":1,"rotation":0}},
+                {"neg":{"advice":{"query":6,"column":1,"rotation":1}}}
+               ]
+              },
+              {
+               "prod": [
+                {"const":"74b3a831cd01f5d7b1e70f954b3174ca06ae3f6dd74a2a434ed1853907214d40"},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+                  },
+                  {"advice":{"query":3,"column":3,"rotation":0}}
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"f14956950316faf72f42797631b2e9734b4d529e0e62bc81bdc6644270c82c0b"},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+                },
+                {"advice":{"query":4,"column":4,"rotation":0}}
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"1f1a7f638cfca8e2b448438319b50b6d495d0341c688935afa5950a54d66df0f"},
+            {
+             "prod": [
+              {
+               "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+              },
+              {"advice":{"query":8,"column":5,"rotation":0}}
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "prod": [
+        {"fixed":{"query":20,"column":20,"rotation":0}},
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {"fixed":{"query":8,"column":2,"rotation":0}},
+                {"neg":{"advice":{"query":7,"column":2,"rotation":1}}}
+               ]
+              },
+              {
+               "prod": [
+                {"const":"4091c4907ec55df90a735ab601ad9731035d5cf4474ae2434321a6cdbe3d1d5e"},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":0,"column":0,"rotation":0}},{"advice":{"query":0,"column":0,"rotation":0}}]
+                  },
+                  {"advice":{"query":3,"column":3,"rotation":0}}
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"8aa75a2f00b9c77df35489ae5f6dcb4412c6a57ee79618939daf53fc9c2fd76b"},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":1,"column":1,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]
+                },
+                {"advice":{"query":4,"column":4,"rotation":0}}
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {
+               "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+              },
+              {"advice":{"query":8,"column":5,"rotation":0}}
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {"name":"partial_round_gate","constraints":[]}
+   ],
+   "lookups": [
+    {
+     "name": "lookup #1: pow2range column check",
+     "selector": {"fixed":{"query":16,"column":16,"rotation":0}},
+     "input_expression_chunks": [[[{"fixed":{"query":10,"column":10,"rotation":0}},{"advice":{"query":1,"column":1,"rotation":0}}]]],
+     "table_expressions": [{"fixed":{"query":11,"column":11,"rotation":0}},{"fixed":{"query":12,"column":12,"rotation":0}}],
+     "num_chunks": 1
+    }
+   ],
+   "trash": [
+    {
+     "name": "trash #1",
+     "selector": {"fixed":{"query":21,"column":21,"rotation":0}},
+     "constraints": [
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":6,"column":0,"rotation":0}},
+          {"neg":{"advice":{"query":5,"column":0,"rotation":1}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "sum": [
+                    {
+                     "sum": [
+                      {
+                       "prod": [
+                        {"const":"7187783336232d8eae6dd94e05a5456368c59697f00e661feb822e0302a40b59"},
+                        {"advice":{"query":0,"column":0,"rotation":0}}
+                       ]
+                      },
+                      {
+                       "prod": [
+                        {"const":"6fa7a0552a96ea758ec9ca714e744a95c57cf4e22e1011741f80c3afe489f752"},
+                        {"advice":{"query":1,"column":1,"rotation":0}}
+                       ]
+                      }
+                     ]
+                    },
+                    {
+                     "prod": [
+                      {"const":"a8e11f1d33242028553c2501092b4bcbb10f09ec7f55830708c0aae32fdd0935"},
+                      {
+                       "prod": [
+                        {"advice":{"query":2,"column":2,"rotation":0}},
+                        {
+                         "prod": [
+                          {
+                           "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                          },
+                          {
+                           "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                          }
+                         ]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  },
+                  {
+                   "prod": [
+                    {"const":"f2c1d0a004f17f586dc0adcf6488fc3d70f2579c447268bd9c57e5ec46803f33"},
+                    {
+                     "prod": [
+                      {"advice":{"query":3,"column":3,"rotation":0}},
+                      {
+                       "prod": [
+                        {
+                         "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                        },
+                        {
+                         "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                },
+                {
+                 "prod": [
+                  {"const":"a50ca65179000e49fc2c2f80c9871926c67eef14e86ea77aa4b86a2b23982c41"},
+                  {
+                   "prod": [
+                    {"advice":{"query":4,"column":4,"rotation":0}},
+                    {
+                     "prod": [
+                      {
+                       "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                      },
+                      {
+                       "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              },
+              {
+               "prod": [
+                {"const":"0e79993cc3bd5e9d1953876a6aecba5654fe9fd90fd1a5056bba90d436edfd53"},
+                {
+                 "prod": [
+                  {"advice":{"query":8,"column":5,"rotation":0}},
+                  {
+                   "prod": [
+                    {
+                     "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                    },
+                    {
+                     "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"346ddd10839b7f9a8ff8d715ba8134b0e8f1c78ae6e4bda2123c7fd8c7b1cc06"},
+              {
+               "prod": [
+                {"advice":{"query":9,"column":6,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"c1ede1a0ae34cd3e0b08911560337f00b48e54bf798725beda64667adfc4053f"},
+            {
+             "prod": [
+              {"advice":{"query":10,"column":7,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":10,"column":7,"rotation":0}},{"advice":{"query":10,"column":7,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":10,"column":7,"rotation":0}},{"advice":{"query":10,"column":7,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":7,"column":1,"rotation":0}},
+          {"neg":{"advice":{"query":6,"column":1,"rotation":1}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "sum": [
+                    {
+                     "sum": [
+                      {
+                       "prod": [
+                        {"const":"5d1a0f3c3aec3c211295209acd24ec9145a7da6e1a9b5df78bbb8ca262c21f5b"},
+                        {"advice":{"query":0,"column":0,"rotation":0}}
+                       ]
+                      },
+                      {
+                       "prod": [
+                        {"const":"288035ac41ff25a371fa84b200227cd48b33d8affdb035956da0fdc3f9a70e4d"},
+                        {"advice":{"query":1,"column":1,"rotation":0}}
+                       ]
+                      }
+                     ]
+                    },
+                    {
+                     "prod": [
+                      {"const":"10eb18b8231d649a0236ebf6a45ef08a5afa059606c67ce1207cf4163e22cc26"},
+                      {
+                       "prod": [
+                        {"advice":{"query":2,"column":2,"rotation":0}},
+                        {
+                         "prod": [
+                          {
+                           "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                          },
+                          {
+                           "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                          }
+                         ]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  },
+                  {
+                   "prod": [
+                    {"const":"258d830ec39816c69a65de0d8f7a5466cda50f0c314e54c18474565ea423e831"},
+                    {
+                     "prod": [
+                      {"advice":{"query":3,"column":3,"rotation":0}},
+                      {
+                       "prod": [
+                        {
+                         "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                        },
+                        {
+                         "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                },
+                {
+                 "prod": [
+                  {"const":"85ba69445d81ef4bc639a4c00a8861631f2d3e0d272039199219a91e36205a27"},
+                  {
+                   "prod": [
+                    {"advice":{"query":4,"column":4,"rotation":0}},
+                    {
+                     "prod": [
+                      {
+                       "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                      },
+                      {
+                       "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              },
+              {
+               "prod": [
+                {"const":"01f733969d4557e52fa1a855e35c39924b690250a2c3edb19740ceb4ba153a5f"},
+                {
+                 "prod": [
+                  {"advice":{"query":8,"column":5,"rotation":0}},
+                  {
+                   "prod": [
+                    {
+                     "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                    },
+                    {
+                     "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"cd2efbc2412edf1a35f2d0bbf1dbdeaa4a48f6dd1c24c42c1177459b6ff51c30"},
+              {
+               "prod": [
+                {"advice":{"query":9,"column":6,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"1f1a7f638cfca8e2b448438319b50b6d495d0341c688935afa5950a54d66df0f"},
+            {
+             "prod": [
+              {"advice":{"query":10,"column":7,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":10,"column":7,"rotation":0}},{"advice":{"query":10,"column":7,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":10,"column":7,"rotation":0}},{"advice":{"query":10,"column":7,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":8,"column":2,"rotation":0}},
+          {"neg":{"advice":{"query":3,"column":3,"rotation":0}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "prod": [
+              {"const":"4091c4907ec55df90a735ab601ad9731035d5cf4474ae2434321a6cdbe3d1d5e"},
+              {"advice":{"query":0,"column":0,"rotation":0}}
+             ]
+            },
+            {
+             "prod": [
+              {"const":"8aa75a2f00b9c77df35489ae5f6dcb4412c6a57ee79618939daf53fc9c2fd76b"},
+              {"advice":{"query":1,"column":1,"rotation":0}}
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {"advice":{"query":2,"column":2,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":9,"column":3,"rotation":0}},
+          {"neg":{"advice":{"query":4,"column":4,"rotation":0}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "prod": [
+                {"const":"c13479e922308b47eb3cbed034b087492cfe8dfae902b419eedf5304e7832e22"},
+                {"advice":{"query":0,"column":0,"rotation":0}}
+               ]
+              },
+              {
+               "prod": [
+                {"const":"9171d0655856e36927e3da2ae1cf87c90e469a4003ca338fb22657f987ccc226"},
+                {"advice":{"query":1,"column":1,"rotation":0}}
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"7202786db7725436391ed2e375e4ba8ac3a0903b8fef6cdd2001768a93d08243"},
+              {
+               "prod": [
+                {"advice":{"query":2,"column":2,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {"advice":{"query":3,"column":3,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":1,"column":4,"rotation":0}},
+          {"neg":{"advice":{"query":8,"column":5,"rotation":0}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "prod": [
+                  {"const":"4b2e2087fa81a1852da5e30f05cd1e282ba825ae860b63558184496750f16d72"},
+                  {"advice":{"query":0,"column":0,"rotation":0}}
+                 ]
+                },
+                {
+                 "prod": [
+                  {"const":"2055f0a907b47ce64d78cd557e0e3332d30bf2b07ec812c98728aaf91a2e8224"},
+                  {"advice":{"query":1,"column":1,"rotation":0}}
+                 ]
+                }
+               ]
+              },
+              {
+               "prod": [
+                {"const":"29eab13e8e55dcee905af86a61dba956fb25afb1a643b5bfb8968f9d1080524e"},
+                {
+                 "prod": [
+                  {"advice":{"query":2,"column":2,"rotation":0}},
+                  {
+                   "prod": [
+                    {
+                     "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                    },
+                    {
+                     "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"7202786db7725436391ed2e375e4ba8ac3a0903b8fef6cdd2001768a93d08243"},
+              {
+               "prod": [
+                {"advice":{"query":3,"column":3,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {"advice":{"query":4,"column":4,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":2,"column":5,"rotation":0}},
+          {"neg":{"advice":{"query":9,"column":6,"rotation":0}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "prod": [
+                    {"const":"a7517716128309f32b58e0ecf364511f4805519e0fcf6dd21bcfc669b108592f"},
+                    {"advice":{"query":0,"column":0,"rotation":0}}
+                   ]
+                  },
+                  {
+                   "prod": [
+                    {"const":"27e8c6c7d733d0e5ef840160623f77aaae83ffd8b8d5e4226a722d944b68a623"},
+                    {"advice":{"query":1,"column":1,"rotation":0}}
+                   ]
+                  }
+                 ]
+                },
+                {
+                 "prod": [
+                  {"const":"4e8df917fe8f7e1fc05baf9394a35de623331d981d357b95ab9d6a3db3b48119"},
+                  {
+                   "prod": [
+                    {"advice":{"query":2,"column":2,"rotation":0}},
+                    {
+                     "prod": [
+                      {
+                       "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                      },
+                      {
+                       "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              },
+              {
+               "prod": [
+                {"const":"29eab13e8e55dcee905af86a61dba956fb25afb1a643b5bfb8968f9d1080524e"},
+                {
+                 "prod": [
+                  {"advice":{"query":3,"column":3,"rotation":0}},
+                  {
+                   "prod": [
+                    {
+                     "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                    },
+                    {
+                     "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"7202786db7725436391ed2e375e4ba8ac3a0903b8fef6cdd2001768a93d08243"},
+              {
+               "prod": [
+                {"advice":{"query":4,"column":4,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {"advice":{"query":8,"column":5,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":3,"column":6,"rotation":0}},
+          {"neg":{"advice":{"query":10,"column":7,"rotation":0}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "sum": [
+                    {
+                     "prod": [
+                      {"const":"4a27c791b0bb7f4f41f3da51dd67fcb6dbe3a12e97c09efca739f55919a4056d"},
+                      {"advice":{"query":0,"column":0,"rotation":0}}
+                     ]
+                    },
+                    {
+                     "prod": [
+                      {"const":"490834384d59744b9678e0d21e518506e49ab9041954c1196d2ac4269211e727"},
+                      {"advice":{"query":1,"column":1,"rotation":0}}
+                     ]
+                    }
+                   ]
+                  },
+                  {
+                   "prod": [
+                    {"const":"33052f8279cda4f826e825fbe66466a3e359ab85a8d744aa526345a8464cd900"},
+                    {
+                     "prod": [
+                      {"advice":{"query":2,"column":2,"rotation":0}},
+                      {
+                       "prod": [
+                        {
+                         "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                        },
+                        {
+                         "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                },
+                {
+                 "prod": [
+                  {"const":"4e8df917fe8f7e1fc05baf9394a35de623331d981d357b95ab9d6a3db3b48119"},
+                  {
+                   "prod": [
+                    {"advice":{"query":3,"column":3,"rotation":0}},
+                    {
+                     "prod": [
+                      {
+                       "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                      },
+                      {
+                       "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              },
+              {
+               "prod": [
+                {"const":"29eab13e8e55dcee905af86a61dba956fb25afb1a643b5bfb8968f9d1080524e"},
+                {
+                 "prod": [
+                  {"advice":{"query":4,"column":4,"rotation":0}},
+                  {
+                   "prod": [
+                    {
+                     "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                    },
+                    {
+                     "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"7202786db7725436391ed2e375e4ba8ac3a0903b8fef6cdd2001768a93d08243"},
+              {
+               "prod": [
+                {"advice":{"query":8,"column":5,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {"advice":{"query":9,"column":6,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "sum": [
+        {
+         "sum": [
+          {"fixed":{"query":4,"column":7,"rotation":0}},
+          {"neg":{"advice":{"query":7,"column":2,"rotation":1}}}
+         ]
+        },
+        {
+         "sum": [
+          {
+           "sum": [
+            {
+             "sum": [
+              {
+               "sum": [
+                {
+                 "sum": [
+                  {
+                   "sum": [
+                    {
+                     "sum": [
+                      {
+                       "prod": [
+                        {"const":"336638ef4739b43ce71ea1f13fbb44956a762a1c9bccac0f654da633a7f2d870"},
+                        {"advice":{"query":0,"column":0,"rotation":0}}
+                       ]
+                      },
+                      {
+                       "prod": [
+                        {"const":"6102560f5c67b5c6182459af026529e2ae49d79eac814893bb2225eb9f38fa40"},
+                        {"advice":{"query":1,"column":1,"rotation":0}}
+                       ]
+                      }
+                     ]
+                    },
+                    {
+                     "prod": [
+                      {"const":"3e0dc511b9d293936410c14b82af4263e51a301ef5295e0c416121655b34611f"},
+                      {
+                       "prod": [
+                        {"advice":{"query":2,"column":2,"rotation":0}},
+                        {
+                         "prod": [
+                          {
+                           "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                          },
+                          {
+                           "prod": [{"advice":{"query":2,"column":2,"rotation":0}},{"advice":{"query":2,"column":2,"rotation":0}}]
+                          }
+                         ]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  },
+                  {
+                   "prod": [
+                    {"const":"33052f8279cda4f826e825fbe66466a3e359ab85a8d744aa526345a8464cd900"},
+                    {
+                     "prod": [
+                      {"advice":{"query":3,"column":3,"rotation":0}},
+                      {
+                       "prod": [
+                        {
+                         "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                        },
+                        {
+                         "prod": [{"advice":{"query":3,"column":3,"rotation":0}},{"advice":{"query":3,"column":3,"rotation":0}}]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                },
+                {
+                 "prod": [
+                  {"const":"4e8df917fe8f7e1fc05baf9394a35de623331d981d357b95ab9d6a3db3b48119"},
+                  {
+                   "prod": [
+                    {"advice":{"query":4,"column":4,"rotation":0}},
+                    {
+                     "prod": [
+                      {
+                       "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                      },
+                      {
+                       "prod": [{"advice":{"query":4,"column":4,"rotation":0}},{"advice":{"query":4,"column":4,"rotation":0}}]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              },
+              {
+               "prod": [
+                {"const":"29eab13e8e55dcee905af86a61dba956fb25afb1a643b5bfb8968f9d1080524e"},
+                {
+                 "prod": [
+                  {"advice":{"query":8,"column":5,"rotation":0}},
+                  {
+                   "prod": [
+                    {
+                     "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                    },
+                    {
+                     "prod": [{"advice":{"query":8,"column":5,"rotation":0}},{"advice":{"query":8,"column":5,"rotation":0}}]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            },
+            {
+             "prod": [
+              {"const":"7202786db7725436391ed2e375e4ba8ac3a0903b8fef6cdd2001768a93d08243"},
+              {
+               "prod": [
+                {"advice":{"query":9,"column":6,"rotation":0}},
+                {
+                 "prod": [
+                  {
+                   "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                  },
+                  {
+                   "prod": [{"advice":{"query":9,"column":6,"rotation":0}},{"advice":{"query":9,"column":6,"rotation":0}}]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "prod": [
+            {"const":"dbe09df98eb84fbbd9468ed59cbdff1e83ef4b05a980f8ca7ba05f3aaac59749"},
+            {
+             "prod": [
+              {"advice":{"query":10,"column":7,"rotation":0}},
+              {
+               "prod": [
+                {
+                 "prod": [{"advice":{"query":10,"column":7,"rotation":0}},{"advice":{"query":10,"column":7,"rotation":0}}]
+                },
+                {
+                 "prod": [{"advice":{"query":10,"column":7,"rotation":0}},{"advice":{"query":10,"column":7,"rotation":0}}]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "permutation_columns": [
+    {"kind":"fixed","index":9},
+    {"kind":"advice","index":0},
+    {"kind":"advice","index":1},
+    {"kind":"advice","index":2},
+    {"kind":"advice","index":3},
+    {"kind":"advice","index":4},
+    {"kind":"instance","index":0},
+    {"kind":"instance","index":1},
+    {"kind":"advice","index":5},
+    {"kind":"advice","index":6}
+   ]
+  }
+ },
+ "nb_committed_instances": 1,
+ "committed_instances": ["c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],
+ "instances": [
+  [
+   "28932c72def5f22c7190b558d5dedcd79dddccc470665fb414fa5d54eabe9f1e",
+   "261123db87118fc3b60b80d6b8ee3efddb40abfb7edfffce2f71f8f8e742c14d"
+  ]
+ ],
+ "proof": "84979be3555d9b1b633bc7bbb2180f7c710423bef93ef7b8286861e0246651a49d93cc7440dea0ff1f8481548903e9ed848751d839bb90a2837e08c0b592f6efa0bf3fe4d32bed06d31583c9214d7a283c9710d4e83293fe6a02260617a9277e860b3854e737c70e545151a1631872393b01ee7d35a18496c1af146cbc03d69e1f755b9d14a4216487eb2b0d9dc124258668141747b180ecc7833c1dbf46a2b66efda57a1c79999fe59c931438b47bd04c48e47c0454027b7444e19b2e88a00da48d1733f267a7201c3c24b0316fcfa33659f85b3fb096454e7934c5fb8e6d4441e7c0732ed2c1a10d3ef6f62b93df66b46424d6d0748def0501c46739c2125cdc73d3a60ee35c36f5490d18f196a7c3dc77c7e49989c4b0d927ccbdc6598d239142d357aa1f532379a9796c46a7d9a8340041877d086b1e467f44e59e1b53dae9243ea3dfea41a3247c10d748de18a7879e61bd9f25ada497bf6fe00b9d3818e96388c6db814a172bde6429598b609e6d16eb157b9a39c67852031a64c76e9f82841f614a07d384be69b34a4dfddb5ae847d29c40bd46b0961fa94d4c832392ce27214b3597834eb00d781aaf0a57bb90c26b1b96bcfc0f7ece08997cb8f50d793db2bc056c662f5df5e503508a4096f25fbd57562c401b1ae831a9f88658568975f13a55b991a6db711ab9daf41d9e798e884e1c803334aa00cb830e9d63c71f141b1effc240379ce298dd928f00c2b3f685fbe20620939e74598c65ac24405530986aa1465955a6e0f773bb11be498b31ad3d706db762af0b10e89d1a0e618a97a03c7279f53daaaa69585d4c87883b4fc1a12a52f15c298deb5695a709639c6016015a00ff5e0af7ec63970a7899b53ee201f7a5845553999031f139f3d9078bdaf8a9fc974682566b359b9ce06a2c24705b5b45356e4dbb5e0d15c8664b8697facc46fd289896da5d429379304dc072752c7bdc83e8458d5f59020d4bb57b053ce9007e1f1761f6de48673c70e5abadb67f81b6f14a1a5d68b6a6e37a4551aaece4b2ce14e7c770d0b766f5ce32c8df3b0f583e6f2a77b4699d7d64f471b11e0dcef07589c3caa6ec2f47ee6d0d0ad31130fa76c52cc0243a0a37205072ab4ec545683b47a699ab64546f34d152a7d6b34bf6df77f51e68f8f77f2dc0906cb58e8de66105c74932e06deb127b320b6c9b889ffa84396093b8a630b1786caf6f6902849d522f453be9a997d9ddac89e88a2dcff371a320d6bde05f6f7f956caf60b93ce0d2809463172085cb52b098e5a4deafc0156b482bb6e29e039613c8b73dc961eb736766708a0c7814bda508cbe7edd0c628cfe4b9665d6d75cccd957c8ad88ffcaf620289d63043c4d042114eaeb37fd420724561be4127711a1dc69c8104da2c794139e3df5444c83f710000000000000000000000000000000000000000000000000000000000000000b68a2460f36a715373de9b9485d394b13bea48c19127175e95986c7ee8fdcb344f833ec1ddd9b36abfe5bdad6769c3814e174d57202a3cf4bb6a98074986be43c193af531acc4bbcaa0564f5a7543cd9862211afb1a251a4bc243252aa9d0a1007a5a0acf2650eeb37184d82c9b1df4d20aad62fd3f2713d020e00abedc71250556dcd66b276fe23f493a4f8c9946e46b99ece3eba92d9b2ca246bc03a62796c6c731f1e2e635404830efe13f9e1bc346c361985393188775b93ece76514ab2d7ec2e8a00b991d5794a38253a1c4684c43f28220a56d3c7075b538d3a0efb12cdefb6b2938d048efe6687c0203a25ec966d1d3d26c998286b960a6cb308a1d04762a5406b3c2fd2349724a8b8613cdf8bec42be5085cac517b1cdf3bf996577167fea66d99259d7b32a8be6626060ace2209144bc394ede8ed08e60d9c82082c057388befeecfc492c884e9acef8e71762971c5d5eb18065d2d7796b10d62c1adae61ee8d9b7359e45f393b1a737ed3fd2e949a9cbde28e6800c52482ad978429e4a0b18829e8ec040f9a89372d31688c26419ec45ea832b89f4a09100734a3209b51e2333e84ec12ba5826cc5ba84b9fb84bb0203ca6f1713ca7e57b2db5f6542986e4fbb563ef79e68a4088696aabace0eb2e40885fab015fa344f52e251055f6561e0ad0796a1bbff2da18c424bd5e68ce2134e463f81d26acb0327620d5515fa6625250cfc916a9c502bdf60788fca47388c843b72f2d73c8a6188b75a2be3e22965acc947fbd521af22e5bb7a077bc4f25894bd8b803dd108f6d1813c2ca631096f0d3674297c681ed50e9001e51715949a9d0384f1113a1003d178ff290884e0573dd1e6202c5fe4aac1edcb5777059d9a8ed06fd49614749421f01b5a4589d5b70759ed86a77a3a925755465b1e7ceb68438bad5408dc2e03e3a4803c5aabce5c9e1b76064258b050481ad9d2529e6f343330e4feeacb45e8fe0074315a2c2689f7ce72bd200fd21ea68aa68baf66aa60a686c2be7571f46dc1da8c5c1d910fe428b0ed73a49059f750c446bc174d26db4edab3509be3deae30d92536c1dcc4504a10cb1f029bfd18ec6a745733ce198eff837d97fdc1f84956a9df5b2314ad262696379ceff672e72138cf66f919ff8f739806386792cddd0a8ea94dce304953c23b5839da153eadda499030a670fd1923f55e83ee03c44db994646b7476b5fe1493df96a895eb1351d11aaddba3efbf896692fbc79c83109995982103251edefabb9c0918223c70a4445cadf9fdfdb3d4cd4f1a7acd3b15e47ba61d054008ba6a167b26dcdffcbb9e9d885726dae8614114d69fb6d5ae4ea592dd40fd3d328560287019daf62a91ec2551a6659e62ba05c9a3098c886707935a5e4580822e7544f7ddec227be09cb99ae93249ab95556a3971d3ce6c660a4501c433f4c8ab9baed5fa6054a79557c6f88775df46f2faa10e77e86fd1a1afcd68cd54eef2f7d8a96a7a84e117b58ba887cee9ec2685b4c82dc1fc33bf122371456b17dc132992e0c3c1871521baaf0e90952e63681e548328ac9f7d7bc90b96a7c8159531e370e0f9f350b8484d924715a2b0e58ead1c8ce4e998baa66acdaea1295c75fc88726bb10770ed1e4e2c390ab0a7275fc6673552969c0746a84dd626b510e709a97d051e2222cc957d8720260bde2d83d9567b427a4b52f8a0b4cafbea6c74e06d7312e6cd1d0012edf68bca0c7ad96a33027345e6de9b0347e47e30282dbaad7fb35fce6e273183a6237177e00b0defc62ee07d8bdf67368aca544b7e731cb7090f924d523963cbabe88044cc44e200ec74867c30eddb8827f1dcb02b293526985b4ed334c9553570748be781f238f32926a267e409abcbde5d3a72ee04975ebeefd6c2e2fb6885f1b4ff5659120db455787d87caaf5a429d83b7689d71c2d18260131db0c2eb2b37f04a331003074a5339e9dc6b5431ad8d47918d98206d143f9fef44a58b2c3513d7b7f9690691286f92071473128a8a243dd7dc1f24c234fc3f29879231cb488f438ce9b7a9d88496bce609e5adec82936aa7602b35daf333b9f5129aca6d44ec842391866c716740e24b4bc5a105cd39fb565f7a0a89f3a15be16f64970a4a1ae15c28d5a50938f357a1b1ca51f452b7db0f2ca76e8ec6095b941a2714107a3105852824f0a1b9bf87467c0082e6f126b804c8e91b30fe452452046e1c966a1884d6a608da6a02c668665d088fc4dab10cdd4253142ad49e71d2d1df9511c74a5322914f16d2bc7a42a63d37886cf786dd43113464e1f735b52173dec8b0ee416161d403a60497898297ce8a7cdb3ed99df585d16aae18e95a97852d2b063276b0f56e36df1e913335fd69994b82e604f02d448c1086e74541d30ad395ce5434c746f01ffd1dcdda20bad48d8a1ec9f026579286107f6b5e26d78ed86535149346a9785c435dec0f09fbc598eb0733ee62d594d38ca7b1c6f01fbe68009b80315f4228c63d15689440f0ec061ebd10346ccb7cba7b4771feba1c48e20c48fc056103dfca41b6e404bd4d9aea978d296c666866361cb719edc7d675d1f84416a75120547640939de25821ebe190641b015a89408a49422b9f5c81446127d0c3df1b06d61149c0f290988c89aaa174c189bb2ae01c1b",
+ "expected": true
+}

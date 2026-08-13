@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+:root {
+  /* Semantic cell colours, shared between DOM (Tailwind arbitrary values) and
+     canvas rendering. */
+  --col-instance: #7dd3fc;
+  --col-advice: #86efac;
+  --col-fixed: #fcd34d;
+  --col-selector: #f9a8d4;
+  --col-rotation: #c4b5fd;
+  --col-blinding: #475569;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}

@@ -205,7 +205,7 @@ fn main() {
 
 // Bitcoin uses points that only have even y coordinates. The input x_coord is
 // in big-endian format. This function decompresses to the point with even y.
-fn parse_bitcoin_point(x_coord: &[u8; 32]) -> K256 {
+pub fn parse_bitcoin_point(x_coord: &[u8; 32]) -> K256 {
     // Standard SEC1 compressed encoding: 0x02 for even y + BE x-bytes.
     let mut sec1_compressed = [0u8; 33];
     sec1_compressed[0] = 0x02;

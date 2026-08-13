@@ -219,7 +219,7 @@ fn main() {
 
 // Computation of an Ethereum public key from raw serialised data.
 // Takes BE-encoded x and y coordinates.
-fn parse_eth_point(bytes: &[[u8; 32]; 2]) -> K256 {
+pub fn parse_eth_point(bytes: &[[u8; 32]; 2]) -> K256 {
     // Standard SEC1 compressed encoding: 0x02 (even y) or 0x03 (odd y) + BE x.
     let y_parity = bytes[1][31] % 2;
     let mut sec1_compressed = [0u8; 33];

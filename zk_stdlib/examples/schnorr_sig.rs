@@ -35,13 +35,13 @@ type SchnorrPK = JubjubSubgroup;
 type SchnorrSK = JubjubScalar;
 type Message = F;
 
-fn keygen(mut rng: impl RngCore) -> (SchnorrPK, SchnorrSK) {
+pub fn keygen(mut rng: impl RngCore) -> (SchnorrPK, SchnorrSK) {
     let sk = JubjubScalar::random(&mut rng);
     let pk = JubjubSubgroup::generator() * sk;
     (pk, sk)
 }
 
-fn sign(message: Message, secret_key: &SchnorrSK, mut rng: impl RngCore) -> SchnorrSignature {
+pub fn sign(message: Message, secret_key: &SchnorrSK, mut rng: impl RngCore) -> SchnorrSignature {
     let k = JubjubScalar::random(&mut rng);
     let r = JubjubSubgroup::generator() * k;
 

@@ -43,8 +43,9 @@ pub use tfp::TracingFloorPlanner;
 
 use crate::{plonk::VirtualCell, poly::Rotation, utils::rational::Rational};
 
+/// A region of the circuit, as observed during synthesis.
 #[derive(Debug)]
-struct Region {
+pub struct Region {
     /// The name of the region. Not required to be unique.
     name: String,
     /// The columns involved in this region.
@@ -68,6 +69,34 @@ struct Region {
 }
 
 impl Region {
+    /// The name of the region.
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    /// The columns involved in this region.
+    pub fn columns(&self) -> &HashSet<Column<Any>> {
+        &self.columns
+    }
+
+    /// The (start, end) rows of this region (both inclusive), if any cells
+    /// were assigned.
+    pub fn rows(&self) -> Option<(usize, usize)> {
+        self.rows
+    }
+
+    /// The selectors enabled in this region, with the rows they are enabled
+    /// at.
+    pub fn enabled_selectors(&self) -> &HashMap<Selector, Vec<usize>> {
+        &self.enabled_selectors
+    }
+
+    /// Annotations given to Advice, Fixed or Instance columns within this
+    /// region.
+    pub fn annotations(&self) -> &HashMap<ColumnMetadata, String> {
+        &self.annotations
+    }
+
     fn update_extent(&mut self, column: Column<Any>, row: usize) {
         self.columns.insert(column);
 
@@ -755,6 +784,23 @@ impl<F: FromUniformBytes<64> + Ord> MockProver<F> {
         circuit: &ConcreteCircuit,
         instance: Vec<Vec<F>>,
     ) -> Result<Self, Error> {
+        // Dry run via RowSizer to find the minimum n = 2^k.
+        let (k, _n) = RowSizer::min_k(circuit, instance.clone())?;
+        Self::run_with_k(circuit, k, instance)
+    }
+
+    /// Runs a synthetic keygen-and-prove operation on the given circuit at an
+    /// explicit circuit size `k` (`n = 2^k`).
+    ///
+    /// Unlike [`MockProver::run`], no minimum-size dry run is performed; use
+    /// this when the circuit must match a key generated at a specific `k`
+    /// (table-filling via `fill_from_row` depends on the number of usable
+    /// rows, so fixed-column contents differ between sizes).
+    pub fn run_with_k<ConcreteCircuit: Circuit<F>>(
+        circuit: &ConcreteCircuit,
+        k: u32,
+        instance: Vec<Vec<F>>,
+    ) -> Result<Self, Error> {
         let mut cs = ConstraintSystem::default();
         #[cfg(feature = "circuit-params")]
         let config = ConcreteCircuit::configure_with_params(&mut cs, circuit.params());
@@ -763,8 +809,13 @@ impl<F: FromUniformBytes<64> + Ord> MockProver<F> {
 
         assert_eq!(instance.len(), cs.num_instance_columns);
 
-        // Dry run via RowSizer to find the minimum n = 2^k.
-        let (k, n) = RowSizer::min_k(circuit, instance.clone())?;
+        let n = 1usize << k;
+        assert!(
+            n >= cs.minimum_rows(),
+            "n={} is not enough to hold the minimum {} rows of the circuit",
+            n,
+            cs.minimum_rows()
+        );
         let constants = cs.constants.clone();
 
         let instance = instance
@@ -1359,6 +1410,16 @@ impl<F: FromUniformBytes<64> + Ord> MockProver<F> {
         &self.cs
     }
 
+    /// Returns the circuit size parameter `k` (`n = 2^k`).
+    pub fn k(&self) -> u32 {
+        self.k
+    }
+
+    /// Returns the regions observed during synthesis.
+    pub fn regions(&self) -> &[Region] {
+        &self.regions
+    }
+
     /// Returns the usable rows
     pub fn usable_rows(&self) -> &Range<usize> {
         &self.usable_rows
@@ -1934,5 +1995,96 @@ mod tests {
                 ],
             },])
         )
+    }
+
+    #[test]
+    fn run_with_explicit_k() {
+        #[derive(Clone)]
+        struct LookupCircuitConfig {
+            a: Column<Advice>,
+            q: Selector,
+            table: TableColumn,
+        }
+
+        struct LookupCircuit {}
+
+        impl Circuit<Scalar> for LookupCircuit {
+            type Config = LookupCircuitConfig;
+            type FloorPlanner = SimpleFloorPlanner;
+            #[cfg(feature = "circuit-params")]
+            type Params = ();
+
+            fn configure(meta: &mut ConstraintSystem<Scalar>) -> Self::Config {
+                let a = meta.advice_column();
+                let q = meta.complex_selector();
+                let table = meta.lookup_table_column();
+
+                meta.lookup("test_lookup", None, |cells| {
+                    let a = cells.query_advice(a, Rotation::cur());
+                    let q = cells.query_selector(q);
+                    let not_q = Expression::from(1) - q.clone();
+                    let default = Expression::from(2);
+                    vec![(q * a + not_q * default, table)]
+                });
+
+                LookupCircuitConfig { a, q, table }
+            }
+
+            fn without_witnesses(&self) -> Self {
+                Self {}
+            }
+
+            fn synthesize(
+                &self,
+                config: Self::Config,
+                mut layouter: impl Layouter<Scalar>,
+            ) -> Result<(), Error> {
+                layouter.assign_table(
+                    || "Doubling table",
+                    |mut table| {
+                        (1..8usize)
+                            .map(|i| {
+                                table.assign_cell(
+                                    || format!("table[{}] = {}", i, 2 * i),
+                                    config.table,
+                                    i - 1,
+                                    || Value::known(Scalar::from(2 * i as u64)),
+                                )
+                            })
+                            .try_fold((), |_, res| res)
+                    },
+                )?;
+
+                layouter.assign_region(
+                    || "Assignments",
+                    |mut region| {
+                        config.q.enable(&mut region, 0)?;
+                        region.assign_advice(
+                            || "a = 2",
+                            config.a,
+                            0,
+                            || Value::known(Scalar::from(2)),
+                        )?;
+                        Ok(())
+                    },
+                )
+            }
+        }
+
+        let auto = MockProver::run(&LookupCircuit {}, vec![]).unwrap();
+        auto.verify().unwrap();
+
+        // Re-run one size up: the circuit must still be satisfied, the table
+        // column must be padded up to the larger number of usable rows, and
+        // regions must be observable through the public accessor.
+        let bigger = MockProver::run_with_k(&LookupCircuit {}, auto.k() + 1, vec![]).unwrap();
+        bigger.verify().unwrap();
+        assert_eq!(bigger.k(), auto.k() + 1);
+        assert_eq!(
+            bigger.usable_rows().end,
+            2 * auto.n as usize - (auto.cs.blinding_factors() + 1)
+        );
+        assert!(!bigger.regions().is_empty());
+        assert!(bigger.regions().iter().any(|r| r.name() == "Assignments"));
     }
 }

@@ -38,6 +38,7 @@ pub(crate) mod trash;
 pub mod bench;
 
 mod prover;
+pub mod prover_trace;
 mod verifier;
 
 use std::io;

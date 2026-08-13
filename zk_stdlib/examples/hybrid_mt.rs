@@ -146,7 +146,7 @@ where
 impl<F: PoseidonField> MerklePath<F> {
     // Function to compute (off circuit) the Merkle tree root given the leaf and the
     // sibling nodes.
-    fn compute_root(&self) -> F {
+    pub fn compute_root(&self) -> F {
         let digest = sha2::Sha256::digest(self.leaf_bytes);
 
         // Create low and high limbs from digest:
@@ -174,7 +174,7 @@ impl<F: PoseidonField> MerklePath<F> {
     }
 }
 
-fn create_random_merkle_path<F>() -> MerklePath<F>
+pub fn create_random_merkle_path<F>() -> MerklePath<F>
 where
     F: PrimeField,
 {
